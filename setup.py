@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 from distutils.core import setup, Extension
+import Cython.Distutils
+import numpy
 
 setup(name             = "numpy_c_ext_example",
       version          = "1.0",
@@ -9,24 +11,17 @@ setup(name             = "numpy_c_ext_example",
       author_email     = "contact@crumpington.com",
       maintainer       = "contact@crumpington.com",
       url              = "https://www.crumpington.com",
+      cmdclass={'build_ext': Cython.Distutils.build_ext},
       ext_modules      = [
           Extension(
               'lib.simple1', ['src/simple1.c'],
+              include_dirs=[numpy.get_include()],
               extra_compile_args=["-Ofast", "-march=native"]),
           Extension(
               'lib.simple2', ['src/simple2.c'],
+              include_dirs=[numpy.get_include()],
               extra_compile_args=["-Ofast", "-march=native"]),
-          Extension(
-              'lib.simd1', ['src/simd1.c'],
-              extra_compile_args=["-Ofast", "-march=native"]),
-          Extension(
-              'lib.omp1', ['src/omp1.c'],
-              extra_compile_args=["-Ofast", "-march=native", "-fopenmp"],
-              libraries=["gomp"]),
-          Extension(
-              'lib.simdomp1', ['src/simdomp1.c'],
-              extra_compile_args=["-Ofast", "-march=native", "-fopenmp"],
-              libraries=["gomp"]),
+          Extension('lib.sim2', ['lib/sim2.pyx'])
       ], 
       
 )
