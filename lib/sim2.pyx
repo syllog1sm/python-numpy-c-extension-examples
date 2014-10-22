@@ -8,9 +8,11 @@ from libc.math cimport sqrt
 
 cimport cython
 
+
 cdef struct Point:
     double x
     double y
+
 
 cdef class World:
     cdef Pool mem
@@ -39,32 +41,31 @@ cdef class World:
 
 
 @cython.cdivision(True)
-def compute_F(World w):
+cdef void compute_F(Point* F, Point* r, double* m, int N) nogil:
     """Compute the force on each body in the world, w."""
     cdef int i, j
     cdef double s3, tmp
     cdef Point s
-    cdef Point F
-    for i in range(w.N):
-        # Set all forces to zero. 
-        w.F[i].x = 0
-        w.F[i].y = 0
-        for j in range(i+1, w.N):
-            s.x = w.r[j].x - w.r[i].x
-            s.y = w.r[j].y - w.r[i].y
+    cdef Point local_F
+    for i in range(N):
+        F[i].x = 0
+        F[i].y = 0
+        for j in range(i+1, N):
+            s.x = r[j].x - r[i].x
+            s.y = r[j].y - r[i].y
 
             s3 = sqrt(s.x * s.x + s.y * s.y)
             s3 *= s3 * s3;
 
-            tmp = w.m[i] * w.m[j] / s3
+            tmp = m[i] * m[j] / s3
             F.x = tmp * s.x
             F.y = tmp * s.y
 
-            w.F[i].x += F.x
-            w.F[i].y += F.y
+            F[i].x += F.x
+            F[i].y += F.y
 
-            w.F[j].x -= F.x
-            w.F[j].y -= F.y
+            F[j].x -= F.x
+            F[j].y -= F.y
 
 
 @cython.cdivision(True)
@@ -72,7 +73,7 @@ def evolve(World w, int steps):
     """Evolve the world, w, through the given number of steps."""
     cdef int _, i
     for _ in range(steps):
-        compute_F(w)
+        compute_F(w.F, w.r, w.m, w.N)
         for i in range(w.N):
             w.v[i].x += w.F[i].x * w.dt / w.m[i]
             w.v[i].y += w.F[i].y * w.dt / w.m[i]
