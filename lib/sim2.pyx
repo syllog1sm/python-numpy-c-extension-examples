@@ -58,14 +58,14 @@ cdef void compute_F(Point* F, Point* r, double* m, int N) nogil:
             s3 *= s3 * s3;
 
             tmp = m[i] * m[j] / s3
-            F.x = tmp * s.x
-            F.y = tmp * s.y
+            local_F.x = tmp * s.x
+            local_F.y = tmp * s.y
 
-            F[i].x += F.x
-            F[i].y += F.y
+            F[i].x += local_F.x
+            F[i].y += local_F.y
 
-            F[j].x -= F.x
-            F[j].y -= F.y
+            F[j].x -= local_F.x
+            F[j].y -= local_F.y
 
 
 @cython.cdivision(True)

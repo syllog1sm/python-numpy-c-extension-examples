@@ -798,6 +798,7 @@ static int __pyx_pf_3lib_4sim2_5World___init__(struct __pyx_obj_3lib_4sim2_World
   double __pyx_v_s3;
   double __pyx_v_tmp;
   struct __pyx_t_3lib_4sim2_Point __pyx_v_s;
+  struct __pyx_t_3lib_4sim2_Point __pyx_v_local_F;
 /* … */
   /* function exit code */
 }
@@ -830,24 +831,24 @@ static int __pyx_pf_3lib_4sim2_5World___init__(struct __pyx_obj_3lib_4sim2_World
 </pre><pre class='cython line score-0'>&#xA0;59: </pre>
 <pre class='cython line score-0' onclick='toggleDiv(this)'>+60:             tmp = m[i] * m[j] / s3</pre>
 <pre class='cython code score-0'>      __pyx_v_tmp = (((__pyx_v_m[__pyx_v_i]) * (__pyx_v_m[__pyx_v_j])) / __pyx_v_s3);
-</pre><pre class='cython line score-0' onclick='toggleDiv(this)'>+61:             F.x = tmp * s.x</pre>
-<pre class='cython code score-0'>      __pyx_v_F-&gt;x = (__pyx_v_tmp * __pyx_v_s.x);
-</pre><pre class='cython line score-0' onclick='toggleDiv(this)'>+62:             F.y = tmp * s.y</pre>
-<pre class='cython code score-0'>      __pyx_v_F-&gt;y = (__pyx_v_tmp * __pyx_v_s.y);
+</pre><pre class='cython line score-0' onclick='toggleDiv(this)'>+61:             local_F.x = tmp * s.x</pre>
+<pre class='cython code score-0'>      __pyx_v_local_F.x = (__pyx_v_tmp * __pyx_v_s.x);
+</pre><pre class='cython line score-0' onclick='toggleDiv(this)'>+62:             local_F.y = tmp * s.y</pre>
+<pre class='cython code score-0'>      __pyx_v_local_F.y = (__pyx_v_tmp * __pyx_v_s.y);
 </pre><pre class='cython line score-0'>&#xA0;63: </pre>
-<pre class='cython line score-0' onclick='toggleDiv(this)'>+64:             F[i].x += F.x</pre>
+<pre class='cython line score-0' onclick='toggleDiv(this)'>+64:             F[i].x += local_F.x</pre>
 <pre class='cython code score-0'>      __pyx_t_5 = __pyx_v_i;
-      (__pyx_v_F[__pyx_t_5]).x = ((__pyx_v_F[__pyx_t_5]).x + __pyx_v_F-&gt;x);
-</pre><pre class='cython line score-0' onclick='toggleDiv(this)'>+65:             F[i].y += F.y</pre>
+      (__pyx_v_F[__pyx_t_5]).x = ((__pyx_v_F[__pyx_t_5]).x + __pyx_v_local_F.x);
+</pre><pre class='cython line score-0' onclick='toggleDiv(this)'>+65:             F[i].y += local_F.y</pre>
 <pre class='cython code score-0'>      __pyx_t_5 = __pyx_v_i;
-      (__pyx_v_F[__pyx_t_5]).y = ((__pyx_v_F[__pyx_t_5]).y + __pyx_v_F-&gt;y);
+      (__pyx_v_F[__pyx_t_5]).y = ((__pyx_v_F[__pyx_t_5]).y + __pyx_v_local_F.y);
 </pre><pre class='cython line score-0'>&#xA0;66: </pre>
-<pre class='cython line score-0' onclick='toggleDiv(this)'>+67:             F[j].x -= F.x</pre>
+<pre class='cython line score-0' onclick='toggleDiv(this)'>+67:             F[j].x -= local_F.x</pre>
 <pre class='cython code score-0'>      __pyx_t_5 = __pyx_v_j;
-      (__pyx_v_F[__pyx_t_5]).x = ((__pyx_v_F[__pyx_t_5]).x - __pyx_v_F-&gt;x);
-</pre><pre class='cython line score-0' onclick='toggleDiv(this)'>+68:             F[j].y -= F.y</pre>
+      (__pyx_v_F[__pyx_t_5]).x = ((__pyx_v_F[__pyx_t_5]).x - __pyx_v_local_F.x);
+</pre><pre class='cython line score-0' onclick='toggleDiv(this)'>+68:             F[j].y -= local_F.y</pre>
 <pre class='cython code score-0'>      __pyx_t_5 = __pyx_v_j;
-      (__pyx_v_F[__pyx_t_5]).y = ((__pyx_v_F[__pyx_t_5]).y - __pyx_v_F-&gt;y);
+      (__pyx_v_F[__pyx_t_5]).y = ((__pyx_v_F[__pyx_t_5]).y - __pyx_v_local_F.y);
     }
   }
 </pre><pre class='cython line score-0'>&#xA0;69: </pre>
